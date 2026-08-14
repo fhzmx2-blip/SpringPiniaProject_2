@@ -25,8 +25,8 @@ jobs:
          rm -f .env
          touch .env
          echo "DB_URL=${{secrets.DB_URL}}">> .env
-         echo "DB_URL=${{secrets.DB_USERNAME}}">> .env
-         echo "DB_URL=${{secrets.DB_PASSWORD}}">> .env
+         echo "DB_USERNAME=${{secrets.DB_USERNAME}}">> .env
+         echo "DB_PASSWORD=${{secrets.DB_PASSWORD}}">> .env
          echo ".env 저장 완료"
       # gradlew 권한 부여
       - run: chmod +x gradlew
