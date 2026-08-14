@@ -47,6 +47,6 @@ jobs:
           #if [ -n "$PID" ]; then
           #   kill -15 "$PID" || true
           #fi
-     #- run: nohup java -jar build/libs/SpringPiniaProject_2-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
+     #- run: nohup java -jar build/libs/SpringThymeLeafDockerProject-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
         env:
          RUNNER_TRACKING_ID: ""
