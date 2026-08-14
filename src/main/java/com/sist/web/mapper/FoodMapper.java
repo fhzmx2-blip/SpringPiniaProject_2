@@ -41,7 +41,7 @@ public interface FoodMapper {
 	// => selectList
 	
 	// 총페이지 
-	@Select("SELECT CEIL(COUTN(*)/12.0) FROM food")
+	@Select("SELECT CEIL(COUNT(*)/12.0) FROM food")
 	public int foodTotalPage();
 	
 	// 상세보기
@@ -49,6 +49,6 @@ public interface FoodMapper {
 	public FoodVO foodDetailData(int no);
 	// => selectOne
 	
-	@Update("UPDATE food SET hti=hit+1 WHERE no=#{no}")
+	@Update("UPDATE food SET hit=hit+1 WHERE no=#{no}")
 	public void foodHitIncrement(int no);
 }
