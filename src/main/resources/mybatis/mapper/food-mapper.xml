@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.web.mapper.FoodMapper">
+  <!-- 
+        resultType    : 리턴형  
+        parameterType : 매개변수 
+        id            : 메소드명 
+        
+        XML = SQL문장이 복잡한 경우에 사용 (JOIN/동적쿼리)
+              단순한 SQL = 어노테이션 이용 
+        
+   -->
+   <!-- 목록 출력 : 페이징 -->
+   <select id="foodListData" resultType="com.sist.web.vo.FoodVO"
+           parameterType="int"
+   >
+     SELECT no,name,poster,address 
+     FROM food
+     ORDER BY no ASC 
+     OFFSET #{start} ROWS FETCH NEXT 12 ROWS ONLY
+   </select>
+</mapper>
