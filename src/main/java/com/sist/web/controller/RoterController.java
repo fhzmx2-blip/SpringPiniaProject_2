@@ -3,6 +3,7 @@ package com.sist.web.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller // 화면 변경 
@@ -19,6 +20,12 @@ public class RoterController {
    {
 	   model.addAttribute("no", no);
 	   model.addAttribute("main_html", "food/detail");
+	   return "main/main";
+   }
+   @RequestMapping("/member/login")
+   public String member_login(Model model)
+   {
+	   model.addAttribute("main_html", "member/login");
 	   return "main/main";
    }
 }
