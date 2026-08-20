@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.web.mapper.CommentMapper">
+  <select id="commentListData" 
+          resultType="com.sist.web.vo.CommentVO"
+          parameterType="int">
+    SELECT no,fno,id,name,TO_CHAR(regdate,'yyyy-mm-dd hh24:mi:ss') as dbday
+    FROM piniaComment
+    WHERE fno=#{fno}
+    ORDER BY no DESC 
+    OFFSET #{start} ROWS FETCH NEXT 10 ROWS ONLY
+  </select>
+  <select id="commentRowCount" resultType="int" parameterType="int">
+    SELECT COUNT(*) FROM piniaComment 
+    WHERE fno=#{fno}
+  </select>
+  <insert id="commentInsert" 
+       parameterType="com.sist.web.vo.CommentVO">
+    INSERT INTO piniaComment VALUES(
+      pc_no_seq.nextval,
+      #{fno},
+      #{id},
+      #{name},
+      #{msg},
+      SYSDATE
+    )     
+  </insert>
+</mapper>
