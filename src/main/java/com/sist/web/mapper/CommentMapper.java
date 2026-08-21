@@ -39,4 +39,20 @@ public interface CommentMapper {
 	  </insert>
    */
 	public void commentInsert(CommentVO vo);
+	/*
+	 *   <delete id="commentDelete" parameterType="int">
+		    DELETE FROM piniaComment 
+		    WHERE no=#{no}
+		  </delete>
+	 */
+	public void commentDelete(int no);
+	
+	/*
+	 *   <update id="commentUpdate" parameterType="com.sist.web.vo.CommentVO">
+		    UPDATE piniaComment SET 
+		    msg=#{msg}
+		    WHERE no=#{no}
+		  </update>
+	 */
+	public void commentUpdate(CommentVO vo);
 }
