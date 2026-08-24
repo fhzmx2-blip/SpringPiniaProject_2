@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.sist.web.vo.ChatMessage;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -20,16 +21,25 @@ public class ChatController {
 	
 	@MessageMapping("/chat/public")
 	@SendTo("/topic/chat")
-	public ChatMessage publicChat(ChatMessage msg, Principal p) {
-		msg.setSender(p.getName());
+	public ChatMessage publicChat(ChatMessage msg, HttpSession session) {
+		msg.setSender((String)session.getAttribute("userid"));
 		
 		return msg;
 	}
 	
-	@GetMapping("/chat")
-	public String chat_chat(Model model) {
-		model.addAttribute("main_html","chat/chat");
+	@MessageMapping("/chat/private")
+	public void privateChat(ChatMessage msg, HttpSession session) {
+		String sender=(String)session.getAttribute("userid");
+		msg.setSender(sender);
 		
-		return "chat";
+		template.convertAndSendToUser(msg.getReceiver(),"/queue/chat",msg);
+		
+		template.convertAndSendToUser(sender,"/queue/chat",msg);
 	}
+	
+	@GetMapping("/chat/chat")
+    public String chat_chat(Model model) {
+    	 model.addAttribute("main_html", "chat/chat");
+    	 return "main/main";
+    }
 }

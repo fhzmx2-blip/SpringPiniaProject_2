@@ -150,7 +150,7 @@ public class SecurityConfig {
 	          // /comment/** => authenticated()
 	    )
 	    // 로그인 설정 => login_ok
-	   
+	    
 	    .formLogin(form -> form 
 	          .loginPage("/member/login")
 	          //로그인 화면창 설정 => 설정이 없는 경우 default login
