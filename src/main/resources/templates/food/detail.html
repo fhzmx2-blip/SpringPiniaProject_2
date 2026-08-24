@@ -181,10 +181,14 @@ console.log("ID="+SESSION_ID)
                  <tr>
                    <td class="text-center">
                     <button type=button class="btn-sm btn-primary"
-                    @click="store.move(store.curpage-1)" v-if="store.curpage>1">이전</button>
+                      @click="store.move(store.curpage-1)"
+                      v-if="store.curpage>1"
+                    >이전</button>
                     {{store.curpage}} page / {{store.totalpage}} pages
                     <button type=button class="btn-sm btn-primary"
-                    @click="store.move(store.curpage+1)" v-if="store.curpage<store.totalpage">다음</button>
+                      @click="store.move(store.curpage+1)"
+                      v-if="store.curpage<store.totalpage"
+                    >다음</button>
                    </td>
                  </tr>
                </tbody>
@@ -199,7 +203,7 @@ console.log("ID="+SESSION_ID)
                 <tr>
                  <td class="text-center">
                   <textarea rows="4" cols="70" style="float: left"
-                   ref="msgRef" v-model="store.msg" 
+                   ref="msgRef" v-model="store.msg"
                   ></textarea>
                   <button type=button class="btn-primary"
                     @click="store.commentInsert(msgRef)"
@@ -235,4 +239,4 @@ console.log("ID="+SESSION_ID)
    commentApp.mount("#commentId")
   </script>
 </body>
-</html>
+</html>  

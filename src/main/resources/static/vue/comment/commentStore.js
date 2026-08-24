@@ -115,7 +115,7 @@ const useCommentStore=defineStore('comment',{
 	   },
 	   move(page){
 		this.curpage=page
-		commentListData(this.fno)
+		this.commentListData(this.fno)
 	   }
 	   // 수정 
 	}
