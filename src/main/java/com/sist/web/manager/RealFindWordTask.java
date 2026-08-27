@@ -6,9 +6,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RealFindWordTask {
-	@Async
-	@Scheduled(fixedRate = 60 * 3 * 1000)
-	public void task() {
-
-	}
+   @Async
+   @Scheduled(fixedRate = 60*3*1000)
+   public void task()
+   {
+	   
+   }
 }

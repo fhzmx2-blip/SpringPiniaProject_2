@@ -1,6 +1,8 @@
 package com.sist.web.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.*;
 import com.sist.web.mapper.*;
 import com.sist.web.vo.*;
@@ -40,4 +42,6 @@ public class CommentServiceImpl implements CommentService{
 	// TODO Auto-generated method stub
 	mapper.commentUpdate(vo);
    }
+
+   
 }

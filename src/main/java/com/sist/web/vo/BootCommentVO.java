@@ -1,6 +1,6 @@
 package com.sist.web.vo;
 
-import java.util.Date;
+import java.util.*;
 
 import lombok.Data;
 

@@ -1,111 +1,113 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<title>실시간 채팅</title>
+    <title>실시간 채팅</title>
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-<style>
-html, body {
-	height: 100%;
-	margin: 0;
-}
+    <style>
 
-.container {
-	margin-top: 30px;
-}
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
 
-.row {
-	margin: 0 auto;
-	width: 900px;
-}
+        .container {
+            margin-top: 30px;
+        }
 
-.user-panel {
-	height: 650px;
-	border: 1px solid #ddd;
-	background: #fff;
-	overflow-y: auto;
-}
+        .row {
+            margin: 0 auto;
+            width: 900px;
+        }
 
-.chat-panel {
-	height: 650px;
-	border: 1px solid #ddd;
-	display: flex;
-	flex-direction: column;
-	padding: 0;
-}
+        .user-panel {
+            height: 650px;
+            border: 1px solid #ddd;
+            background: #fff;
+            overflow-y: auto;
+        }
 
-.chat-header {
-	height: 55px;
-	padding: 17px;
-	background: #f7f7f7;
-	border-bottom: 1px solid #ddd;
-}
+        .chat-panel {
+            height: 650px;
+            border: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+        }
 
-.chat-body {
-	flex: 1;
-	overflow-y: auto;
-	padding: 15px;
-	background: #b2c7da;
-}
+        .chat-header {
+            height: 55px;
+            padding: 17px;
+            background: #f7f7f7;
+            border-bottom: 1px solid #ddd;
+        }
 
-.message-row {
-	width: 100%;
-	clear: both;
-	overflow: hidden;
-	margin-bottom: 10px;
-}
+        .chat-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            background: #b2c7da;
+        }
 
-.bubble {
-	max-width: 60%;
-	padding: 10px 12px;
-	border-radius: 10px;
-	word-break: break-all;
-	line-height: 1.4;
-}
+        .message-row {
+            width: 100%;
+            clear: both;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
 
-.bubble.left {
-	float: left;
-	background: #fff;
-	border: 1px solid #eee;
-}
+        .bubble {
+            max-width: 60%;
+            padding: 10px 12px;
+            border-radius: 10px;
+            word-break: break-all;
+            line-height: 1.4;
+        }
 
-.bubble.right {
-	float: right;
-	background: #ffeb33;
-}
+        .bubble.left {
+            float: left;
+            background: #fff;
+            border: 1px solid #eee;
+        }
 
-.sender {
-	font-size: 12px;
-	font-weight: bold;
-	margin-bottom: 3px;
-}
+        .bubble.right {
+            float: right;
+            background: #ffeb33;
+        }
 
-.chat-footer {
-	padding: 10px;
-	background: #eee;
-	border-top: 1px solid #ddd;
-}
-</style>
+        .sender {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
 
-<script
-	src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+        .chat-footer {
+            padding: 10px;
+            background: #eee;
+            border-top: 1px solid #ddd;
+        }
 
-<script
-	src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+    </style>
 
-<script src="https://unpkg.com/vue@3.3.4/dist/vue.global.js"></script>
-<script src="https://unpkg.com/vue-demi"></script>
-<script src="https://unpkg.com/pinia@2.1.7/dist/pinia.iife.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
 
-<script th:inline="javascript">
+    <script src="https://unpkg.com/vue@3.3.4/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/vue-demi"></script> 
+    <script src="https://unpkg.com/pinia@2.1.7/dist/pinia.iife.prod.js"></script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script th:inline="javascript">
         const LOGIN_USER =
             /*[[${session.userid}]]*/ '';
     </script>
@@ -114,96 +116,135 @@ html, body {
 
 <body>
 
-	<div class="container" id="app">
+<div class="container"
+     id="app">
 
-		<div class="row">
+    <div class="row">
 
-			<div class="col-sm-3 user-panel">
+        <div class="col-sm-3 user-panel">
 
-				<h4 class="text-center">접속자</h4>
+            <h4 class="text-center">
+                접속자
+            </h4>
 
-				<div class="list-group-item" @click="store.changeRoom('public')"
-					style="cursor: pointer">
+            <div class="list-group-item"
+                 @click="store.changeRoom('public')"
+                 style="cursor:pointer">
 
-					<span class="glyphicon glyphicon-globe"></span> 전체 채팅
+                <span class="glyphicon glyphicon-globe"></span>
 
-				</div>
+                전체 채팅
 
-				<br>
+            </div>
 
-				<div v-for="u in store.users" :key="u" class="list-group-item"
-					@click="store.changeRoom(u)" style="cursor: pointer">
+            <br>
 
-					<span class="glyphicon glyphicon-user"></span> {{ u }}
+            <div v-for="u in store.users"
+                 :key="u"
+                 class="list-group-item"
+                 @click="store.changeRoom(u)"
+                 style="cursor:pointer">
 
-				</div>
+                <span class="glyphicon glyphicon-user"></span>
 
-			</div>
+                {{ u }}
 
-			<div class="col-sm-9 chat-panel">
+            </div>
 
-				<div class="chat-header">
+        </div>
 
-					<b> <span v-if="store.currentRoom === 'public'"> 전체 채팅 </span>
+        <div class="col-sm-9 chat-panel">
 
-						<span v-else> 1:1 채팅 - {{
-							store.getOtherUser(store.currentRoom) }} </span>
+            <div class="chat-header">
 
-					</b>
+                <b>
 
-				</div>
+                    <span v-if="store.currentRoom === 'public'">
 
-				<div class="chat-body" ref="chatBody">
+                        전체 채팅
 
-					<div class="message-row" v-for="(m, index) in store.messages"
-						:key="index">
+                    </span>
 
-						<div v-if="m.sender !== store.loginUser" class="bubble left">
+                    <span v-else>
 
-							<div v-if="store.currentRoom !== 'public'" class="sender">
+                        1:1 채팅 -
+                        {{ store.getOtherUser(store.currentRoom) }}
 
-								{{ m.sender }}</div>
+                    </span>
 
-							{{ m.message }}
+                </b>
 
-						</div>
+            </div>
 
-						<div v-else class="bubble right">{{ m.message }}</div>
+            <div class="chat-body"
+                 ref="chatBody">
 
-					</div>
+                <div class="message-row"
+                     v-for="(m, index) in store.messages"
+                     :key="index">
 
-				</div>
+                    <div v-if="m.sender !== store.loginUser"
+                         class="bubble left">
 
-				<div class="chat-footer">
+                        <div v-if="store.currentRoom !== 'public'"
+                             class="sender">
 
-					<div class="input-group">
+                            {{ m.sender }}
 
-						<input type="text" class="form-control" v-model="store.msg"
-							@keyup.enter="store.send()" placeholder="메시지 입력"> <span
-							class="input-group-btn">
+                        </div>
 
-							<button class="btn btn-warning" @click="store.send()">
+                        {{ m.message }}
 
-								전송</button>
+                    </div>
 
-						</span>
+                    <div v-else
+                         class="bubble right">
 
-					</div>
+                        {{ m.message }}
 
-				</div>
+                    </div>
 
-			</div>
+                </div>
 
-		</div>
+            </div>
 
-	</div>
+            <div class="chat-footer">
 
-	<script src="/vue/chat/chatStore.js"></script>
+                <div class="input-group">
 
-	<script>
+                    <input type="text"
+                           class="form-control"
+                           v-model="store.msg"
+                           @keyup.enter="store.send()"
+                           placeholder="메시지 입력">
 
+                    <span class="input-group-btn">
+
+                        <button class="btn btn-warning"
+                                @click="store.send()">
+
+                            전송
+
+                        </button>
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="/vue/chat/chatStore.js"></script>
+
+<script>
+    // Pinia
     const { createPinia } = Pinia
-
+    // Vue 
     const {
         ref,
         createApp,
@@ -211,25 +252,25 @@ html, body {
     } = Vue
 
     const app = createApp({
-
-        setup() {
-
+         // 한번에 모아서 소스 코딩 
+         setup() {
+            // PiniaStore 가지고 온다 
             const store = useChatStore()
-
+            // 스크롤바 , 화면 (전체 => 1:1)
             const chatBody = ref(null)
-
+            // onload => 화면이 생성된 다음 실행 
             onMounted(() => {
-
+                // 로그인한 사람의 ID
                 store.loginUser =
                     LOGIN_USER
-
+                // 채팅창 UI
                 store.chatBodyEl =
                     chatBody.value
-
+                // WebSocket 연결 
                 store.connect()
 
             })
-
+            // HTML에서 사용이 가능하게 
             return {
 
                 store,
@@ -241,9 +282,9 @@ html, body {
         }
 
     })
-
+    // Pinia등록 
     app.use(createPinia())
-
+    // 제어하는 HTML 영역 <template>
     app.mount('#app')
 
 </script>

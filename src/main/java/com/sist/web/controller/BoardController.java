@@ -44,7 +44,6 @@ public class BoardController {
 		model.addAttribute("curpage", curpage);
 		model.addAttribute("totalpage", totalpage);
 		model.addAttribute("main_html", "board/list");
-
 		return "main/main";
 	}
 
@@ -61,10 +60,10 @@ public class BoardController {
 	}
 
 	@GetMapping("/board/detail")
-	public String board_detail(@RequestParam("no") int no, Model model, HttpSession session) {
+	public String board_detail(@RequestParam("no") int no, Model model) {
 		BootBoard vo = bDao.findByNo(no);
 		vo.setHit(vo.getHit() + 1);
-		bDao.save(vo); // 조회수 증가
+		bDao.save(vo);// 조회수 증가
 		vo = bDao.findByNo(no);
 
 		model.addAttribute("no", no);
